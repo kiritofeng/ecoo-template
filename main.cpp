@@ -21,6 +21,13 @@ class _Print{
     }
 };
 #define print _Print(),
+typedef unsigned int ui;
+typedef long long ll;
+typedef unsigned long long ull;
+typedef std::pair<int,int>pii;
+typedef std::pair<ll,ll>pll;
+typedef std::vector<int>vi;
+typedef std::vector<pii>vii;
 int main(){
   for(int _testcase=1;i<=10;++_testcase){
   
