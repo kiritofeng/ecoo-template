@@ -1,4 +1,3 @@
-#include<bits/stdc++.h>
 // gotta go fast
 #ifdef OPTIMIZE
     #pragma GCC optimize "Ofast"
