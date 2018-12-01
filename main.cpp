@@ -123,7 +123,9 @@ const int inf=0x3f3f3f3f;
 const ll INF=0x3f3f3f3f3f3f3f3f;
 
 int main(){
-  for(int _testcase=1;_testcase<=10;++_testcase){
+    std::ios::sync_with_stdio(0);
+    std::cin.tie(0);
+    for(int _testcase = 1; _testcase <= 10; ++_testcase){
   
-  }
+    }
 }
