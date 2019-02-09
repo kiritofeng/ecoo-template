@@ -132,7 +132,7 @@ inline typename ITVT sum (InputIt first, InputIt last) {
     return ret;
 }
 template<class InputIt>
-inline typename ITVT reduce (std::function<ITVT(typename ITVT, typename ITVT)> f, InputIt first, InputIt last, typename ITVT initial=typename ITVT(0)) {
+inline typename ITVT reduce (std::function<typename ITVT(typename ITVT, typename ITVT)> f, InputIt first, InputIt last, typename ITVT initial=typename ITVT(0)) {
     typename ITVT ret=initial;
     for(;first!=last;++first)
         ret=*f(ret,first);
