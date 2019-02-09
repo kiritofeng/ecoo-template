@@ -85,28 +85,68 @@ inline int ub(int msk,int i){
 inline int tb(int msk,int i){
     return msk^(1<<i);
 }
-// python-like functions
+/**
+ * C++ implementation of Python-like functions:
+ * 
+ * sum
+ * reduce
+ * any
+ * all
+**/
+#define ITVT typename std::iterator_traits<InputIt>::value_type // I don't wish to type this again...
 template<class InputIt>
-inline bool all(InputIt first,InputIt last,std::function<bool(typename std::iterator_traits<InputIt>::value_type)> f){
+inline bool all (std::function<bool(ITVT)> f, InputIt first, InputIt last) {
     for(;first!=last;++first){
         if(!f(*first)) return 0;
     }
     return 1;
 }
+template<typename T>
+inline bool all (std::function<bool(typename t)> f, T t) {
+    return f(t);
+}
+template<typename T, typename... A>
+inline bool all (std::function<bool(typename t)> f, T t, A... a) {
+    return f(t) and all(f, a...);
+}
 template<class InputIt>
-inline bool any(InputIt first,InputIt last,std::function<bool(typename std::iterator_traits<InputIt>::value_type)> f){
+inline bool any (std::function<bool(typename ITVT)> f, InputIt first, InputIt last) {
     for(;first!=last;++first){
         if(f(*first)) return 1;
     }
     return 0;
 }
+template<typename T>
+inline bool any (std::function<bool(typename t)> f, T t) {
+    return f(t);
+}
+template<typename T, typename... A>
+inline bool any (std::function<bool(typename t)> f, T t, A... a) {
+    return f(t) or all(f, a...);
+}
 template<class InputIt>
-inline typename std::iterator_traits<InputIt>::value_type sum(InputIt first,InputIt last){
-    typename std::iterator_traits<InputIt>::value_type ret=typename std::iterator_traits<InputIt>::value_type(0);
+inline typename ITVT sum (InputIt first, InputIt last) {
+    typename ITVT ret=typename ITVT(0);
     for(;first!=last;++first)
         ret+=*first;
     return ret;
 }
+template<class InputIt>
+inline typename ITVT reduce (std::function<ITVT(typename ITVT, typename ITVT)> f, InputIt first, InputIt last, typename ITVT initial=typename ITVT(0)) {
+    typename ITVT ret=initial;
+    for(;first!=last;++first)
+        ret=*f(ret,first);
+    return ret;
+}
+template<typename T>
+inline T reduce (std::function<T(T, T)> f, T t) {
+    return t;   
+}
+template<typename T, typename A... a>
+inline T reduce (std::function<T(T, T)> f, T t1, T t2, A... a) {
+    return reduce(f, f(t1, t2), a...);
+}
+#undef ITVT // just to be safe
 inline void print() {
     std::cout << std::endl;
 }
