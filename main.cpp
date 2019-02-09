@@ -121,10 +121,16 @@ inline void print(T t, A... a) {
 // standard constants
 const int inf=0x3f3f3f3f;
 const ll INF=0x3f3f3f3f3f3f3f3f;
-
 int main(){
     std::ios::sync_with_stdio(0);
     std::cin.tie(0);
+    #ifdef DEBUG
+        std::cerr << "YOU ARE IN DEBUG MODE. IF YOU ARE ABOUT TO SUBMIT, CORRECT YOUR DEFINES AND CONSTANTS NOW." << std::endl;
+    #else
+        INPUT_FILE = "";
+        freopen(INPUT_FILE,"r",stdin);
+        fclose(stderr);
+    #endif
     for(int _testcase = 1; _testcase <= 10; ++_testcase){
   
     }
