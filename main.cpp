@@ -157,6 +157,7 @@ inline void print(T t) {
 template<typename T, typename ... A>
 inline void print(T t, A... a) {
     std::cout << t << " ";
+    print(a...);
 }
 // standard constants
 const int inf=0x3f3f3f3f;
