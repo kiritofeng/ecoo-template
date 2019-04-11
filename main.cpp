@@ -9,6 +9,9 @@
 #ifndef __WIN32__
   #include<bits/extc++.h>
 #endif
+// personal headers
+#include "cppython.h"
+#include "debug.h"
 // useful macros
 #define gets(x) fgets(x,sizeof(x),stdin)
 #define allOf(x) x.begin(),x.end()
@@ -43,18 +46,6 @@ inline int ub(int msk,int i){
 }
 inline int tb(int msk,int i){
     return msk^(1<<i);
-}
-inline void print() {
-    std::cout << std::endl;
-}
-template<typename T>
-inline void print(T t) {
-    std::cout << t << std::endl;
-}
-template<typename T, typename ... A>
-inline void print(T t, A... a) {
-    std::cout << t << " ";
-    print(a...);
 }
 // standard constants
 const int inf=0x3f3f3f3f;

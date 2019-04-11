@@ -8,6 +8,7 @@
  * any
  * all
  * reversed
+ * filter
 **/
 #define ITVT std::iterator_traits<InputIt>::value_type // I don't wish to type this again...
 template<class InputIt>
@@ -49,6 +50,7 @@ inline typename ITVT sum (InputIt first, InputIt last) {
 }
 template<class InputIt>
 inline typename ITVT reduce (std::function<typename ITVT(typename ITVT, typename ITVT)> f, InputIt first, InputIt last) {
+    if(first == last) return 0;
     typename ITVT ret=*first++;
     for(;first!=last;++first)
         ret=f(ret,*first);
@@ -70,9 +72,9 @@ inline T reduce (std::function<T(T, T)> f, T t1, T t2, A... a) {
     return reduce(f, f(t1, t2), a...);
 }
 #undef ITVT // just to be safe
-template<typename T> class ReverseIter {
+template<typename T> class _cppython_reversed_iterator {
 public:
-    ReverseIter(T &container) : container(container) {}
+    _cppython_reversed_iterator(T &container) : container(container) {}
     typename T::reverse_iterator begin() {
         return container.rbegin();
     }
@@ -88,9 +90,41 @@ public:
 private:
     T &container;
 };
-template<typename T> ReverseIter<T> reversed(T &container) {
-    return ReverseIter<T>(container);
+template<typename T> _cppython_reversed_iterator<T> reversed(T &container) {
+    return _cppython_reversed_iterator<T>(container);
 }
+/*
+template<typename T> class _cppython_filter_iterator {
+public:
+    _cppython_filter_iterator(std::function<bool(typename T::value_type)> _f, T &_container) : f(_f), container(_container) {}
+    class iterator: public std::iterator<
+                        std::input_iterator_tag,
+                        typename T::value_type> {
+        public:
+            iterator& operator++() {
+                return next(*this);
+            }
+    };
+    typename T::iterator begin() {
+        return container.begin();
+    }
+    typename T::iterator end() {
+        return container.end();
+    }
+    typename T::iterator next(typename T::iterator it) {
+        while(it != end()) {
+            if(f(*it)) return it;
+            it++;
+        }
+    }
+private:
+    T &container;
+    std::function<bool(typename T::value_type)> f;
+};
+template<typename T> _cppython_filter_iterator<T> filter(std::function<bool(typename T::value_type)> f,T &container) {
+    return _cppython_filter_iterator<T>(f, container);
+}
+*/
 inline void print() {
     std::cout << std::endl;
 }
